@@ -1,0 +1,38 @@
+# ─── Local / machine-specific overrides ───────────────────────────────────────
+local.sh
+shell/local.sh
+*.local
+*.local.sh
+
+# ─── Secrets and credentials ──────────────────────────────────────────────────
+.secrets
+secrets/
+*.key
+*.pem
+*.token
+.env
+.env.*
+!.env.example
+
+# ─── macOS artefacts ──────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ─── Editor / IDE directories ─────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ─── Build / cache artefacts ──────────────────────────────────────────────────
+__pycache__/
+*.pyc
+node_modules/
+.npm/
+.cache/
+
+# ─── Sensitive git credentials ────────────────────────────────────────────────
+git/.gitconfig.local
+git/.git-credentials

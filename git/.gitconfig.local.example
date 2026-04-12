@@ -1,0 +1,17 @@
+# git/.gitconfig.local.example — Template for machine-specific git settings
+#
+# Copy this file to ~/.gitconfig.local (which is .gitignore'd) and fill it in.
+# The shared git/.gitconfig includes this file via [include].
+#
+# DO NOT commit this file or any file containing your real email/GPG key.
+
+[user]
+	name  = Your Name
+	email = you@example.com
+	# signingkey = ABC123DEF456
+
+[commit]
+	# gpgsign = true
+
+[credential]
+	helper = store   # or 'osxkeychain' on macOS, 'manager' on Windows

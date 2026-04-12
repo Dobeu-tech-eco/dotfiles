@@ -1,0 +1,68 @@
+# git/.gitignore_global — Global git ignore rules
+#
+# This file is symlinked to ~/.gitignore_global by install.sh.
+
+# ─── macOS ────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# ─── Windows ──────────────────────────────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ─── Linux ────────────────────────────────────────────────────────────────────
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ─── Editors ──────────────────────────────────────────────────────────────────
+*.swp
+*.swo
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.sublime-project
+nbproject/
+
+# ─── Build / runtime artefacts ────────────────────────────────────────────────
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+*.out
+*.app
+*.log
+*.pid
+
+# ─── Secrets and credentials ──────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.cert
+.secrets
+secrets/
+.netrc
+.npmrc
+.pypirc
+
+# ─── Common dependency directories ────────────────────────────────────────────
+node_modules/
+vendor/
+.bundle/

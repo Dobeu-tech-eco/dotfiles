@@ -1,0 +1,25 @@
+# local.example — Template for machine-specific shell overrides
+#
+# Copy this file to shell/local.sh (which is .gitignore'd) and fill it in.
+# It is sourced automatically by shell/init.sh if it exists.
+#
+# DO NOT commit shell/local.sh or any file containing secrets.
+
+# ─── Machine identity ─────────────────────────────────────────────────────────
+# export MACHINE_NAME="my-laptop"
+
+# ─── PATH additions specific to this machine ──────────────────────────────────
+# export PATH="$HOME/.local/bin:$PATH"
+
+# ─── Private environment variables ───────────────────────────────────────────
+# export MY_API_KEY="..."   # Never commit this
+
+# ─── Work proxy / corporate settings ─────────────────────────────────────────
+# export HTTP_PROXY=""
+# export HTTPS_PROXY=""
+
+# ─── Editor preference override ───────────────────────────────────────────────
+# export EDITOR="nano"
+
+# ─── Local aliases ────────────────────────────────────────────────────────────
+# alias proj="cd ~/projects/my-thing"
