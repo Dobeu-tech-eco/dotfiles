@@ -1,0 +1,127 @@
+[
+  {
+    "id": "task-001",
+    "category": "infrastructure",
+    "description": "Initialize agent checkpoint artifacts in .agent/",
+    "steps": [
+      "Create .agent/ directory",
+      "Create progress.md",
+      "Create tasks.json",
+      "Create state.json"
+    ],
+    "status": "complete",
+    "passes": true,
+    "priority": 1,
+    "dependencies": []
+  },
+  {
+    "id": "task-002",
+    "category": "repository",
+    "description": "Create .gitignore protecting secrets, local overrides, and build artefacts",
+    "steps": [
+      "Define ignore rules for secrets (*.pem, *.key, .env, .secrets)",
+      "Define rules for local override files (local.sh, *.local)",
+      "Define rules for editor and OS noise (.DS_Store, *.swp, .idea/)"
+    ],
+    "status": "complete",
+    "passes": true,
+    "priority": 1,
+    "dependencies": []
+  },
+  {
+    "id": "task-003",
+    "category": "shell",
+    "description": "Build shell configuration layer (init, env, path, aliases, functions, prompt)",
+    "steps": [
+      "Create shell/init.sh as the single source entry point",
+      "Create shell/env.sh for environment variable defaults",
+      "Create shell/path.sh for safe PATH management",
+      "Create shell/aliases.sh for navigation, ls, git, and misc aliases",
+      "Create shell/functions.sh for reusable helper functions",
+      "Create shell/prompt.sh for a minimal bash prompt with git branch"
+    ],
+    "status": "complete",
+    "passes": true,
+    "priority": 2,
+    "dependencies": ["task-002"]
+  },
+  {
+    "id": "task-004",
+    "category": "git",
+    "description": "Build git configuration (gitconfig, global gitignore, local template)",
+    "steps": [
+      "Create git/.gitconfig with safe shared settings and useful aliases",
+      "Create git/.gitignore_global for OS, editor, and secret patterns",
+      "Create git/.gitconfig.local.example as a template for private user settings"
+    ],
+    "status": "complete",
+    "passes": true,
+    "priority": 2,
+    "dependencies": ["task-002"]
+  },
+  {
+    "id": "task-005",
+    "category": "bootstrap",
+    "description": "Create install.sh bootstrap/apply script with dry-run mode",
+    "steps": [
+      "Implement --dry-run flag",
+      "Implement prerequisite checks (git)",
+      "Implement shell RC sourcing (bashrc / zshrc)",
+      "Implement gitconfig and gitignore_global symlinking",
+      "Implement local override scaffold from local.example",
+      "Ensure script is idempotent"
+    ],
+    "status": "complete",
+    "passes": true,
+    "priority": 2,
+    "dependencies": ["task-003", "task-004"]
+  },
+  {
+    "id": "task-006",
+    "category": "scripts",
+    "description": "Create scripts/validate.sh and scripts/update.sh utility scripts",
+    "steps": [
+      "Implement syntax check for all shell scripts",
+      "Implement executable permission check for entry-point scripts",
+      "Implement secret file guard via git ls-files",
+      "Implement broken symlink detection",
+      "Create scripts/update.sh for pulling and re-applying dotfiles"
+    ],
+    "status": "complete",
+    "passes": true,
+    "priority": 3,
+    "dependencies": ["task-005"]
+  },
+  {
+    "id": "task-007",
+    "category": "documentation",
+    "description": "Write comprehensive README.md",
+    "steps": [
+      "Document repository purpose and structure",
+      "Document prerequisites and installation steps",
+      "Document local override workflow",
+      "Document what must never be committed",
+      "Document how to extend the repo",
+      "Document validation steps"
+    ],
+    "status": "complete",
+    "passes": true,
+    "priority": 3,
+    "dependencies": ["task-005", "task-006"]
+  },
+  {
+    "id": "task-008",
+    "category": "validation",
+    "description": "Run scripts/validate.sh and confirm all checks pass",
+    "steps": [
+      "Set executable permissions on install.sh, scripts/validate.sh, scripts/update.sh",
+      "Run bash -n syntax check on all shell files",
+      "Run scripts/validate.sh",
+      "Confirm passes=true"
+    ],
+    "status": "complete",
+    "passes": true,
+    "priority": 4,
+    "dependencies": ["task-006", "task-007"]
+  }
+]

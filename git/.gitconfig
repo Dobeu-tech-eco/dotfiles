@@ -1,0 +1,81 @@
+# git/.gitconfig — Shared git configuration for dobeutech
+#
+# This file is symlinked to ~/.gitconfig by install.sh.
+# Machine-specific overrides (name, email, signing key) belong in
+# ~/.gitconfig.local (see the [include] directive below).
+
+[include]
+	path = ~/.gitconfig.local
+
+[core]
+	excludesFile = ~/.gitignore_global
+	autocrlf     = input
+	whitespace   = fix,space-before-tab,tab-in-indent,trailing-space
+	editor       = vim
+
+[init]
+	defaultBranch = main
+
+[push]
+	default      = simple
+	followTags   = true
+
+[pull]
+	rebase       = false
+
+[fetch]
+	prune        = true
+
+[merge]
+	tool         = vimdiff
+	conflictstyle = diff3
+
+[diff]
+	algorithm    = patience
+	colorMoved   = default
+
+[rerere]
+	enabled      = true
+
+[rebase]
+	autoStash    = true
+
+[color]
+	ui           = auto
+
+[color "diff"]
+	meta         = yellow bold
+	frag         = magenta bold
+	old          = red
+	new          = green
+
+[alias]
+	# Short status
+	st  = status -sb
+
+	# Pretty log
+	lg  = log --oneline --graph --decorate --all
+
+	# Show what I changed in the last commit
+	last = log -1 HEAD --stat
+
+	# Undo the last commit but keep changes staged
+	undo = reset --soft HEAD~1
+
+	# Show all branches (local + remote)
+	ba  = branch -a
+
+	# Amend the last commit without editing the message
+	amend = commit --amend --no-edit
+
+	# List aliases
+	aliases = config --get-regexp '^alias\.'
+
+	# Stash including untracked files
+	su  = stash push -u
+
+	# Clean up merged local branches
+	cleanup = "!git branch --merged | grep -vE '(\\*|main|master|develop)' | xargs -r git branch -d"
+
+[url "git@github.com:"]
+	insteadOf = gh:
