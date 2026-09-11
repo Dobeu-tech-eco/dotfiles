@@ -36,3 +36,13 @@ node_modules/
 # ─── Sensitive git credentials ────────────────────────────────────────────────
 git/.gitconfig.local
 git/.git-credentials
+
+# ─── Ona and GitHub Actions runner state ──────────────────────────────────────
+.ona/review/
+/actions-runner/
+/actions-runner-linux-*.tar.gz
+/_work/
+/_diag/
+/.runner
+/.credentials
+/.credentials_rsaparams

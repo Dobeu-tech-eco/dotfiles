@@ -1,0 +1,4 @@
+{
+  "name": "GitHub Actions runner",
+  "image": "mcr.microsoft.com/devcontainers/base:2.0.4-noble"
+}

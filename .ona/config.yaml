@@ -1,0 +1,57 @@
+tasks:
+  install-actions-runner:
+    name: Install GitHub Actions runner
+    command: |
+      set -eu
+      runner_version="2.337.0"
+      runner_sha256="70920811a4f8ad4328818682bca5c6469c1c942fab52448868071d0063816613"
+      runner_dir="${XDG_DATA_HOME:-$HOME/.local/share}/actions-runner"
+      runner_archive="$runner_dir/actions-runner-linux-x64-$runner_version.tar.gz"
+
+      mkdir -p "$runner_dir"
+      if [ ! -x "$runner_dir/run.sh" ]; then
+        curl --fail --location \
+          --output "$runner_archive" \
+          "https://github.com/actions/runner/releases/download/v$runner_version/actions-runner-linux-x64-$runner_version.tar.gz"
+        printf '%s  %s\n' "$runner_sha256" "$runner_archive" | sha256sum --check --status
+        tar --extract --gzip --file "$runner_archive" --directory "$runner_dir"
+        rm -f "$runner_archive"
+      fi
+    triggeredBy:
+      - manual
+      - postDevcontainerStart
+      - prebuild
+
+services:
+  actions-runner:
+    name: GitHub Actions runner
+    description: Runs the registered GitHub Actions runner in the foreground
+    commands:
+      start: |
+        set -eu
+        runner_dir="${XDG_DATA_HOME:-$HOME/.local/share}/actions-runner"
+
+        attempts=0
+        until [ -x "$runner_dir/config.sh" ] || [ "$attempts" -ge 150 ]; do
+          attempts=$((attempts + 1))
+          sleep 2
+        done
+        test -x "$runner_dir/config.sh"
+        cd "$runner_dir"
+
+        if [ ! -f .runner ]; then
+          : "${ACTIONS_RUNNER_TOKEN:?Set ACTIONS_RUNNER_TOKEN to a GitHub runner registration token}"
+          runner_name="${ACTIONS_RUNNER_NAME:-ona-$(hostname)}"
+          ./config.sh --unattended \
+            --url "${ACTIONS_RUNNER_URL:-https://github.com/Dobeu-tech-eco}" \
+            --token "$ACTIONS_RUNNER_TOKEN" \
+            --name "$runner_name"
+        fi
+
+        exec ./run.sh
+      ready: |
+        runner_dir="${XDG_DATA_HOME:-$HOME/.local/share}/actions-runner"
+        pgrep -f "$runner_dir/bin/Runner.Listener" >/dev/null
+    triggeredBy:
+      - manual
+      - postEnvironmentStart
