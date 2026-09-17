@@ -15,6 +15,7 @@ Personal dotfiles for **dobeutech** — portable shell, git, and tooling configu
 - [Extending the repo](#extending-the-repo)
 - [Validation](#validation)
 - [Updating](#updating)
+- [Reference documentation](#reference-documentation)
 
 ---
 
@@ -38,7 +39,11 @@ This repository provides a minimal, maintainable starting point for managing dot
 ```
 dotfiles/
 ├── .agent/                    # Agent checkpoint artifacts (progress, tasks, state)
+├── .devcontainer/             # Reproducible development container definition
+├── .ona/                      # Ona task and service automation
 ├── .gitignore                 # Ignores secrets, local overrides, editor noise
+├── docs/
+│   └── reference.md           # Complete shell and automation API reference
 ├── git/
 │   ├── .gitconfig             # Shared git settings and aliases (symlinked to ~/.gitconfig)
 │   ├── .gitconfig.local.example  # Template for private name/email/key settings
@@ -55,7 +60,8 @@ dotfiles/
 │   ├── aliases.sh             # Shell aliases
 │   ├── functions.sh           # Reusable shell functions
 │   └── prompt.sh              # Minimal bash prompt with git branch
-└── README.md
+├── README.md                  # Installation and maintenance guide
+└── spec.md                    # Repository setup specification
 ```
 
 ---
@@ -73,7 +79,7 @@ dotfiles/
 1. **Clone the repository**
 
    ```sh
-   git clone https://github.com/dobeutech/dotfiles.git ~/dotfiles
+   git clone https://github.com/Dobeu-tech-eco/dotfiles.git ~/dotfiles
    cd ~/dotfiles
    ```
 
@@ -185,3 +191,11 @@ To pull the latest changes and re-apply:
 ```sh
 bash scripts/update.sh
 ```
+
+---
+
+## Reference documentation
+
+See [Shell and Automation Reference](docs/reference.md) for function signatures,
+parameters, return statuses, side effects, aliases, environment variables, and
+usage examples for every executable component in this repository.
