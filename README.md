@@ -14,6 +14,7 @@ Personal dotfiles for **dobeutech** — portable shell, git, and tooling configu
 - [What must never be committed](#what-must-never-be-committed)
 - [Extending the repo](#extending-the-repo)
 - [Validation](#validation)
+- [Working with agents in Ona](#working-with-agents-in-ona)
 - [Updating](#updating)
 - [Reference documentation](#reference-documentation)
 
@@ -42,6 +43,7 @@ dotfiles/
 ├── .devcontainer/             # Reproducible development container definition
 ├── .ona/                      # Ona task and service automation
 ├── .gitignore                 # Ignores secrets, local overrides, editor noise
+├── AGENTS.md                  # Concise instructions loaded by coding agents
 ├── docs/
 │   └── reference.md           # Complete shell and automation API reference
 ├── git/
@@ -181,6 +183,39 @@ Checks:
 4. No broken symlinks for installed dotfiles
 
 All checks should pass before committing.
+
+---
+
+## Working with agents in Ona
+
+Run repository workflows through their checked-in Ona tasks and services:
+
+```sh
+gitpod environment task start validate
+gitpod environment task start install-actions-runner
+gitpod environment service list
+gitpod environment service logs actions-runner --follow
+```
+
+After editing `.ona/config.yaml`, validate and apply it before testing the
+changed workflow:
+
+```sh
+gitpod environment config validate .ona/config.yaml
+gitpod environment config update .ona/config.yaml
+```
+
+In an Ona agent chat, prefix a focused diagnostic command with `!` to run it
+immediately and share its output with the agent:
+
+```sh
+!git status --short
+!gitpod environment task list
+!gitpod environment service list
+```
+
+See [AGENTS.md](AGENTS.md) for the instructions automatically loaded by coding
+agents.
 
 ---
 

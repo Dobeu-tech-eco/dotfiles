@@ -600,7 +600,8 @@ branches; inspect the current state before using them.
 
 ## Ona automation
 
-The workflows in `.ona/config.yaml` manage a self-hosted GitHub Actions runner.
+The workflows in `.ona/config.yaml` validate the repository and manage a
+self-hosted GitHub Actions runner.
 
 ### Task: `install-actions-runner`
 
@@ -621,6 +622,24 @@ succeeds; nonzero for download, checksum, or extraction failure.
 
 ```sh
 gitpod environment task start install-actions-runner
+```
+
+### Task: `validate`
+
+Runs `bash scripts/validate.sh` as the authoritative repository check. This
+covers shell syntax, executable permissions, tracked secret-file patterns, and
+installed dotfile symlinks.
+
+**Inputs:** None.
+
+**Return status:** `0` when every check passes; `1` when one or more checks fail.
+
+**Trigger:** Manual.
+
+**Example:**
+
+```sh
+gitpod environment task start validate
 ```
 
 ### Service: `actions-runner`

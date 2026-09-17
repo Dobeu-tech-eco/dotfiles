@@ -22,6 +22,12 @@ tasks:
       - postDevcontainerStart
       - prebuild
 
+  validate:
+    name: Validate dotfiles
+    command: bash scripts/validate.sh
+    triggeredBy:
+      - manual
+
 services:
   actions-runner:
     name: GitHub Actions runner
